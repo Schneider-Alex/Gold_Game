@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav{
+            flex-direction: column;
+        }
+        .ltext{
+            font-size: 120%;
+        }
+        .mtext{
+            font-size: 100%;
+        }
+
+        .border{
+            border: 5px solid black;
+        }
+
+        .color{
+            color: {{session['color']}}
+        }
+        
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container nav">
+        <h1>Gold Game!</h1>
+        <p class=ltext>Collect as much gold as you can using the options below!</p>
+        <p class=ltext>Gold Count: {{session['gold']}} </p>
+        <form method="post" action='/reset'>
+            <button>Throw it all Away!</button>
+        </form>
+    </div>
+    <div class=container>
+        <div class="container nav border">
+            <p>Farm</p>
+            <p>(earns 10-20 golds)</p>
+            <form action="/gold" method="post">
+                <input name='activity' value='farming' type="hidden">
+                <input type="submit" value='Go Farm!'>
+            </form>
+        </div>
+        <div class="container nav border">
+            <p>Search Cave</p>
+            <p>(earns 5-10 golds)</p>
+            <form action="/gold" method="post">
+                <input name='activity' value='cave' type="hidden">
+                <input type="submit" value='Search!'>
+            </form>
+        </div>
+        <div class="container nav border">
+            <p>Search House</p>
+            <p>(earns 2-5 golds)</p>
+            <form action="/gold" method="post">
+                <input name='activity' value='house' type="hidden">
+                <input type="submit" value='Search!'>
+            </form>
+        </div>
+        <div class="container nav border">
+            <p>Casino</p>
+            <p>(earns/loses 0-50 golds)</p>
+            <form action="/gold" method="post">
+                <input name='activity' value='casino' type="hidden">
+                <input type="submit" value='Put it all on black'>
+            </form>
+        </div>
+    </div>
+    <h2>Activities:</h2>
+    <div class=border height=250px width=400px>
+            {%for x in session['actlist']%}
+                    <p style="color:{{session['color'][loop.index-1]}}">{{x}}</p>
+            {%endfor%}
+    </div>
+
+    
+    
+</body>
+</html>
